@@ -1,0 +1,4 @@
+{
+  "main":"web_server_verticle.rb",
+  "auto-redeploy": true
+}
