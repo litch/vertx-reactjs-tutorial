@@ -25,12 +25,23 @@ sockJSServer = Vertx::SockJSServer.new(server)
 
 sockJSServer.bridge({'prefix' => '/eventbus'},
   [
-    { address: 'orders.place_a_bunch_of_orders'},
-    { address: 'orders.get_order_book'}
+    { address: 'comments.create_comment'},
+    { address: 'comments.get_comments'}
   ],
   [
-    { address: 'orders.order_book_summary'},
-    { address: 'orders.fill_summary'}
-  ])
+    { address: 'comments.all_comments' }
+  ]
+)
 
 server.listen(port_number, 'localhost')
+
+@comments = [{author: 'sam', text: ' comment' }]
+
+Vertx::EventBus.register_handler('comments.get_comments') do |message|
+  message.reply({comments: @comments})
+end
+
+Vertx::EventBus.register_handler('comments.create_comment') do |message|
+  @comments.push(message.body)
+  Vertx::EventBus.publish('comments.all_comments', {comments: @comments})
+end
