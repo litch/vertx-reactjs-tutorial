@@ -1,9 +1,24 @@
 # Vert.x Example Maven Project
 
-Example project for creating a Vert.x module with a Gradle build.
+This was from the Vert.x template project and can be built with Maven.
 
-By default this module contains a simple Java verticle which listens on the event bus and responds to `ping!`
-messages with `pong!`.
+It is an adaptation of the ReactJS [tutorial project](http://facebook.github.io/react/docs/tutorial.html)
+that is adapted to work with a Vert.x (in Ruby) backend.
 
-This example also shows you how to write tests in Java, Groovy, Ruby and Python
+It may not be very good.
+
+The meat of the project is in
+
+src/main/resources/web_server_verticle.rb
+
+and
+
+src/main/resources/web/index.html
+
+It can be run with
+
+```
+mvn package vertx:runMod
+```
+
 

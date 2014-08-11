@@ -1,5 +1,4 @@
 require "vertx"
-require 'benchmark'
 
 include Vertx
 
@@ -35,7 +34,7 @@ sockJSServer.bridge({'prefix' => '/eventbus'},
 
 server.listen(port_number, 'localhost')
 
-@comments = [{author: 'sam', text: ' comment' }]
+@comments = [{author: 'Sam Sneed', text: 'An example comment' }]
 
 Vertx::EventBus.register_handler('comments.get_comments') do |message|
   message.reply({comments: @comments})
