@@ -1,4 +1,4 @@
-# Vert.x Example Maven Project
+# Vert.x Example ReactJS Project
 
 This was from the Vert.x template project and can be built with Maven.
 
