@@ -11,16 +11,25 @@
 <body>
     <div id="content"></div>
 
-    <script type="text/javascript">
-        var eb = new vertx.EventBus(window.location.protocol + '//' +
+    <script type="text/jsx">
+        /** @jsx React.DOM */
+
+        var eb;
+        var initializeEventbus = function(component) {
+            eb = new vertx.EventBus(window.location.protocol + '//' +
                             window.location.hostname + ':' +
                             window.location.port + '/eventbus');
 
+            eb.onopen = function() {
+                  component.fetchComments();
 
-    </script>
+                  eb.registerHandler('comments.all_comments', function(event) {
+                    component.renderComments(event.comments);
+                  });
+               };
+        }
 
-    <script type="text/jsx">
-        /** @jsx React.DOM */
+
         var CommentBox = React.createClass({
             fetchComments: function () {
                 var component = this;
@@ -43,13 +52,7 @@
             },
             componentDidMount: function() {
                var component = this;
-               eb.onopen = function() {
-                  component.fetchComments();
-
-                  eb.registerHandler('comments.all_comments', function(event) {
-                    component.renderComments(event.comments);
-                  });
-               };
+               initializeEventbus(component);
             },
             render: function() {
                 return (
